@@ -1,0 +1,37 @@
+package ThraedpoolFixed;
+import java.util.concurrent.Executors;
+
+public class T_Fixed implements Runnable{
+    int a;
+    
+    T_Fixed(int a){
+    this.a=a;
+    }
+    public void run(){
+        System.out.println(Thread.currentThread().getName()+" : "+a);
+    }
+        
+    public static void main(String[] args){
+        int MAX_T=5;
+        ExecutorService pool = Executors.newFixedThreadPool(MAX_T);
+        for (int i=1;i<=10;i++){
+            Runnable a = new T_Fixed(i);
+            pool.execute(a);
+        }
+    }
+}
+
+/*
+
+Java Executors are of 4 types they are SingleThreadExecutor,FixedThreadPool,CachedThreadPool,ScheduledExecutor.
+1. SingleThreadExecutor : It is obtained by calling the static newSingleThreadExecutor() method.
+   It is used to execute tasks sequentially.
+   Syntax: ExecutorService executor = Executors.newSingleThreadExecutor();
+2. FixedThreadPool(n) : It uses Blocking Queue.
+   Syntax: ExecutorService fixedPool = Executors.newFixedThreadPool(2);
+3. CachedThreadPool : It uses a SynchronousQueue queue.
+   Syntax: ExecutorService executorService = Executors.newCachedThreadPool();
+4. Scheduled executors :These are based on the interface ScheduledExecutorService which extends the ExecutorService interface. 
+   Syntax: ScheduledExecutorService scheduledExecService = Executors.newScheduledThreadPool(1);
+
+*/
